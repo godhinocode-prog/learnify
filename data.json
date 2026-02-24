@@ -1,0 +1,543 @@
+{
+  "topics": [
+    {
+      "id": "ai",
+      "title": "Artificial Intelligence",
+      "category": "Technology",
+      "icon": "🤖",
+      "color": "#6C63FF",
+      "description": "Explore machine learning, neural networks, and the future of AI.",
+      "lessons": [
+        {
+          "id": "ai-1",
+          "title": "Introduction to AI",
+          "content": "Artificial Intelligence (AI) is the simulation of human intelligence processes by computer systems. These processes include learning (acquiring information and rules), reasoning (using rules to reach conclusions), and self-correction. AI applications include expert systems, natural language processing (NLP), speech recognition, and machine vision.\n\nAI can be categorized as narrow (weak) AI — designed to perform a specific task — or general (strong) AI, which can perform any intellectual task a human can.\n\nKey concepts:\n• Machine Learning: Algorithms that improve through experience\n• Deep Learning: Neural networks with many layers\n• NLP: Processing and understanding human language\n• Computer Vision: Interpreting visual data",
+          "activity": {
+            "type": "code",
+            "title": "Train a simple perceptron",
+            "description": "Implement a basic perceptron that learns the AND logic gate.",
+            "starter": "# Simple Perceptron\nimport random\n\ndef perceptron(inputs, weights, bias):\n    total = sum(i*w for i, w in zip(inputs, weights)) + bias\n    return 1 if total >= 0 else 0\n\n# Training data for AND gate\ndata = [([0,0], 0), ([0,1], 0), ([1,0], 0), ([1,1], 1)]\nweights = [random.random(), random.random()]\nbias = random.random()\nlr = 0.1\n\nfor epoch in range(100):\n    for inputs, label in data:\n        pred = perceptron(inputs, weights, bias)\n        err = label - pred\n        weights = [w + lr*err*i for w, i in zip(weights, inputs)]\n        bias += lr * err\n\nprint('Trained weights:', weights)\nfor inputs, label in data:\n    print(f'{inputs} -> {perceptron(inputs, weights, bias)} (expected {label})')",
+            "solution": "The perceptron updates weights based on errors using the delta rule. After training, it correctly classifies all AND gate inputs."
+          },
+          "quiz": [
+            {
+              "question": "What does AI stand for?",
+              "options": ["Automated Integration", "Artificial Intelligence", "Advanced Interface", "Algorithmic Input"],
+              "answer": 1,
+              "explanation": "AI stands for Artificial Intelligence — the simulation of human cognitive processes by machines."
+            },
+            {
+              "question": "Which of the following is an example of Narrow AI?",
+              "options": ["A robot that can do any job", "A chess-playing program", "A general-purpose assistant", "Human brain"],
+              "answer": 1,
+              "explanation": "A chess-playing program like Deep Blue is Narrow AI — designed specifically for one task."
+            },
+            {
+              "question": "What is Deep Learning a subset of?",
+              "options": ["Data Science", "Machine Learning", "Computer Vision", "Robotics"],
+              "answer": 1,
+              "explanation": "Deep Learning is a subset of Machine Learning that uses multi-layered neural networks."
+            }
+          ]
+        },
+        {
+          "id": "ai-2",
+          "title": "Machine Learning Basics",
+          "content": "Machine Learning (ML) is a method of data analysis that automates analytical model building. It's based on the idea that systems can learn from data, identify patterns, and make decisions with minimal human intervention.\n\nTypes of ML:\n• Supervised Learning: Trained on labeled data (e.g., spam detection)\n• Unsupervised Learning: Finds patterns in unlabeled data (e.g., clustering)\n• Reinforcement Learning: Learns by reward/penalty feedback (e.g., game AI)\n\nCommon algorithms:\n• Linear Regression — predicting continuous values\n• Decision Trees — rule-based classification\n• k-Means — grouping similar data\n• Neural Networks — pattern recognition in complex data",
+          "activity": {
+            "type": "code",
+            "title": "K-Means Clustering",
+            "description": "Implement a simple k-means clustering algorithm on 2D data.",
+            "starter": "import random, math\n\npoints = [(random.uniform(0,5), random.uniform(0,5)) for _ in range(20)] + \\\n         [(random.uniform(5,10), random.uniform(5,10)) for _ in range(20)]\n\ncentroids = [points[0], points[20]]\n\ndef distance(a, b):\n    return math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)\n\nfor _ in range(10):\n    clusters = [[], []]\n    for p in points:\n        nearest = min(range(2), key=lambda i: distance(p, centroids[i]))\n        clusters[nearest].append(p)\n    for i in range(2):\n        if clusters[i]:\n            centroids[i] = (sum(p[0] for p in clusters[i])/len(clusters[i]),\n                           sum(p[1] for p in clusters[i])/len(clusters[i]))\n\nprint('Final centroids:', centroids)\nprint('Cluster sizes:', len(clusters[0]), len(clusters[1]))",
+            "solution": "K-Means iteratively assigns points to the nearest centroid and updates centroids until convergence."
+          },
+          "quiz": [
+            {
+              "question": "What type of ML uses labeled training data?",
+              "options": ["Unsupervised", "Reinforcement", "Supervised", "Transfer"],
+              "answer": 2,
+              "explanation": "Supervised Learning uses labeled data where the correct output is provided during training."
+            },
+            {
+              "question": "Which algorithm groups similar data points together?",
+              "options": ["Linear Regression", "k-Means", "Naive Bayes", "Perceptron"],
+              "answer": 1,
+              "explanation": "k-Means is a clustering algorithm that groups data into k clusters based on similarity."
+            },
+            {
+              "question": "What does reinforcement learning use to train agents?",
+              "options": ["Labels", "Clusters", "Rewards and penalties", "Feature vectors"],
+              "answer": 2,
+              "explanation": "Reinforcement learning trains agents through a reward/penalty system based on actions taken."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cs",
+      "title": "Computer Science",
+      "category": "Computing",
+      "icon": "💻",
+      "color": "#00D9A3",
+      "description": "Algorithms, data structures, and computational thinking.",
+      "lessons": [
+        {
+          "id": "cs-1",
+          "title": "Data Structures",
+          "content": "Data structures are ways of organizing and storing data so they can be accessed and modified efficiently. They are fundamental to computer science and software engineering.\n\nKey data structures:\n• Arrays: Fixed-size sequential elements\n• Linked Lists: Nodes connected by pointers\n• Stacks: LIFO (Last In, First Out)\n• Queues: FIFO (First In, First Out)\n• Trees: Hierarchical structures\n• Graphs: Nodes connected by edges\n• Hash Tables: Key-value pair storage\n\nChoosing the right data structure affects performance dramatically. A binary search tree offers O(log n) search vs O(n) for a linked list.",
+          "activity": {
+            "type": "code",
+            "title": "Implement a Stack",
+            "description": "Build a stack data structure with push, pop, and peek operations.",
+            "starter": "class Stack:\n    def __init__(self):\n        self.items = []\n    \n    def push(self, item):\n        # Add item to top\n        pass\n    \n    def pop(self):\n        # Remove and return top item\n        pass\n    \n    def peek(self):\n        # Return top item without removing\n        pass\n    \n    def is_empty(self):\n        return len(self.items) == 0\n\ns = Stack()\ns.push(1)\ns.push(2)\ns.push(3)\nprint(s.pop())  # Should print 3\nprint(s.peek()) # Should print 2",
+            "solution": "def push(self, item): self.items.append(item)\ndef pop(self): return self.items.pop() if not self.is_empty() else None\ndef peek(self): return self.items[-1] if not self.is_empty() else None"
+          },
+          "quiz": [
+            {
+              "question": "What does LIFO stand for?",
+              "options": ["Last In First Out", "Last Input First Output", "Linear Input File Order", "Last Index First Offset"],
+              "answer": 0,
+              "explanation": "LIFO stands for Last In First Out — the defining property of a stack data structure."
+            },
+            {
+              "question": "Which data structure offers O(1) average lookup time?",
+              "options": ["Array", "Linked List", "Hash Table", "Binary Tree"],
+              "answer": 2,
+              "explanation": "Hash tables offer O(1) average time complexity for lookups using a hash function."
+            },
+            {
+              "question": "A binary search tree search has what time complexity?",
+              "options": ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+              "answer": 2,
+              "explanation": "Binary search trees offer O(log n) search time by halving the search space at each step."
+            }
+          ]
+        },
+        {
+          "id": "cs-2",
+          "title": "Algorithms & Sorting",
+          "content": "An algorithm is a step-by-step procedure for solving a problem. Algorithm efficiency is measured using Big O notation, which describes how runtime scales with input size.\n\nCommon sorting algorithms:\n• Bubble Sort: O(n²) — repeatedly swap adjacent elements\n• Selection Sort: O(n²) — find minimum and place it\n• Insertion Sort: O(n²) best case O(n) — build sorted array one item at a time\n• Merge Sort: O(n log n) — divide and conquer\n• Quick Sort: O(n log n) average — pivot-based partitioning\n\nBig O Complexity:\n• O(1) — Constant time\n• O(log n) — Logarithmic\n• O(n) — Linear\n• O(n log n) — Linearithmic\n• O(n²) — Quadratic",
+          "activity": {
+            "type": "code",
+            "title": "Implement Merge Sort",
+            "description": "Code the merge sort algorithm and test it on a list of numbers.",
+            "starter": "def merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n\ntest = [38, 27, 43, 3, 9, 82, 10]\nprint(merge_sort(test))",
+            "solution": "Merge sort divides the array in half, recursively sorts each half, then merges them. Time complexity: O(n log n)."
+          },
+          "quiz": [
+            {
+              "question": "What is the time complexity of Merge Sort?",
+              "options": ["O(n)", "O(n²)", "O(n log n)", "O(log n)"],
+              "answer": 2,
+              "explanation": "Merge Sort has O(n log n) time complexity — dividing takes O(log n) steps, merging takes O(n) each time."
+            },
+            {
+              "question": "Which sorting algorithm has worst-case O(n²) but is good for nearly sorted data?",
+              "options": ["Merge Sort", "Insertion Sort", "Quick Sort", "Heap Sort"],
+              "answer": 1,
+              "explanation": "Insertion Sort performs at O(n) on nearly sorted data, making it great for such cases despite O(n²) worst case."
+            },
+            {
+              "question": "What does Big O notation measure?",
+              "options": ["Memory usage only", "Code readability", "Runtime scaling with input size", "Number of bugs"],
+              "answer": 2,
+              "explanation": "Big O notation describes how an algorithm's runtime or space requirements grow relative to input size."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "title": "Technology",
+      "category": "Technology",
+      "icon": "⚡",
+      "color": "#FF6B6B",
+      "description": "Modern tech trends, web development, and digital innovation.",
+      "lessons": [
+        {
+          "id": "tech-1",
+          "title": "Web Development Fundamentals",
+          "content": "Web development is the work involved in building websites and web applications. It encompasses everything from simple static pages to complex web apps.\n\nCore technologies:\n• HTML: Structure and content\n• CSS: Styling and layout\n• JavaScript: Interactivity and logic\n\nModern frameworks:\n• React — Component-based UI library by Meta\n• Vue — Progressive JS framework\n• Angular — Full framework by Google\n• Node.js — JavaScript runtime for servers\n\nWeb concepts:\n• HTTP/HTTPS: Communication protocols\n• REST APIs: Standard for web services\n• Responsive Design: Adapting to screen sizes\n• Progressive Web Apps (PWAs): App-like websites",
+          "activity": {
+            "type": "code",
+            "title": "Build a REST API",
+            "description": "Create a simple Flask REST API with GET and POST endpoints.",
+            "starter": "from flask import Flask, jsonify, request\napp = Flask(__name__)\n\nitems = [{'id': 1, 'name': 'Laptop'}, {'id': 2, 'name': 'Phone'}]\n\n@app.route('/items', methods=['GET'])\ndef get_items():\n    return jsonify(items)\n\n@app.route('/items', methods=['POST'])\ndef add_item():\n    data = request.json\n    new_item = {'id': len(items)+1, 'name': data['name']}\n    items.append(new_item)\n    return jsonify(new_item), 201\n\nif __name__ == '__main__':\n    app.run(debug=True)",
+            "solution": "The GET endpoint returns all items, POST creates a new item. Flask's jsonify converts Python dicts to JSON responses."
+          },
+          "quiz": [
+            {
+              "question": "What does HTML stand for?",
+              "options": ["Hyper Text Markup Language", "High Tech Modern Language", "Hyperlink Text Management Layer", "Home Tool Markup Language"],
+              "answer": 0,
+              "explanation": "HTML stands for HyperText Markup Language — the standard language for creating web pages."
+            },
+            {
+              "question": "Which HTTP method is used to create a new resource?",
+              "options": ["GET", "PUT", "DELETE", "POST"],
+              "answer": 3,
+              "explanation": "POST is used to submit data and create new resources on the server."
+            },
+            {
+              "question": "What does REST stand for?",
+              "options": ["Real-time Encrypted Secure Transfer", "Representational State Transfer", "Remote Execution Service Technology", "Resource Endpoint Standard Transfer"],
+              "answer": 1,
+              "explanation": "REST stands for Representational State Transfer — an architectural style for distributed hypermedia systems."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ce",
+      "title": "Computer Engineering",
+      "category": "Engineering",
+      "icon": "🔧",
+      "color": "#FFA500",
+      "description": "Hardware design, digital circuits, and embedded systems.",
+      "lessons": [
+        {
+          "id": "ce-1",
+          "title": "Digital Logic & Gates",
+          "content": "Digital logic is the foundation of all digital circuits, computers, and electronic devices. It uses binary (0 and 1) to represent and process information.\n\nBasic logic gates:\n• AND gate: Output is 1 only if ALL inputs are 1\n• OR gate: Output is 1 if ANY input is 1\n• NOT gate: Inverts the input\n• NAND gate: NOT AND — universal gate\n• NOR gate: NOT OR — universal gate\n• XOR gate: Output is 1 if inputs are DIFFERENT\n\nCombinational circuits combine gates to perform operations like addition. Sequential circuits use memory (flip-flops) to store state.\n\nBoolean algebra rules:\n• A AND 0 = 0\n• A OR 1 = 1\n• A XOR A = 0\n• De Morgan's theorem: NOT(A AND B) = NOT(A) OR NOT(B)",
+          "activity": {
+            "type": "code",
+            "title": "Full Adder Circuit",
+            "description": "Implement a 1-bit full adder using logic gate functions.",
+            "starter": "def AND(a, b): return a & b\ndef OR(a, b): return a | b\ndef XOR(a, b): return a ^ b\ndef NOT(a): return 1 - a\n\ndef half_adder(a, b):\n    sum_bit = XOR(a, b)\n    carry = AND(a, b)\n    return sum_bit, carry\n\ndef full_adder(a, b, cin):\n    s1, c1 = half_adder(a, b)\n    sum_bit, c2 = half_adder(s1, cin)\n    cout = OR(c1, c2)\n    return sum_bit, cout\n\nfor a in [0,1]:\n    for b in [0,1]:\n        for cin in [0,1]:\n            s, c = full_adder(a, b, cin)\n            print(f'{a}+{b}+{cin} = sum:{s} carry:{c}')",
+            "solution": "A full adder adds three bits (a, b, carry-in) and produces a sum bit and carry-out using two half adders and an OR gate."
+          },
+          "quiz": [
+            {
+              "question": "What is the output of an AND gate when inputs are 1 and 0?",
+              "options": ["1", "0", "Undefined", "2"],
+              "answer": 1,
+              "explanation": "AND gate outputs 1 only when ALL inputs are 1. With inputs 1 and 0, the output is 0."
+            },
+            {
+              "question": "Which gate is called a universal gate?",
+              "options": ["AND", "OR", "XOR", "NAND"],
+              "answer": 3,
+              "explanation": "NAND (and NOR) are universal gates — any logic function can be built using only NAND gates."
+            },
+            {
+              "question": "What does De Morgan's theorem state?",
+              "options": ["NOT(A AND B) = NOT(A) AND NOT(B)", "NOT(A AND B) = NOT(A) OR NOT(B)", "A AND B = A OR B", "NOT(A OR B) = NOT(A) AND NOT(B) only"],
+              "answer": 1,
+              "explanation": "De Morgan's theorem: NOT(A AND B) = NOT(A) OR NOT(B), and NOT(A OR B) = NOT(A) AND NOT(B)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eee",
+      "title": "Electrical Engineering",
+      "category": "Engineering",
+      "icon": "⚙️",
+      "color": "#FFD700",
+      "description": "Circuits, electronics, electromagnetism, and power systems.",
+      "lessons": [
+        {
+          "id": "eee-1",
+          "title": "Ohm's Law & Circuits",
+          "content": "Ohm's Law is the foundation of electrical circuit analysis. It states that the current through a conductor between two points is directly proportional to the voltage across the two points.\n\nOhm's Law: V = I × R\n• V = Voltage (Volts)\n• I = Current (Amperes)\n• R = Resistance (Ohms)\n\nCircuit elements:\n• Resistor: Opposes current flow\n• Capacitor: Stores electrical charge\n• Inductor: Stores magnetic energy\n• Diode: Allows current in one direction\n• Transistor: Amplify or switch signals\n\nKirchhoff's Laws:\n• KCL: Sum of currents at a node = 0\n• KVL: Sum of voltages in a closed loop = 0\n\nPower: P = V × I = I²R = V²/R",
+          "activity": {
+            "type": "code",
+            "title": "Circuit Calculator",
+            "description": "Build a circuit analyzer that solves series/parallel resistor networks.",
+            "starter": "def series_resistance(*resistors):\n    return sum(resistors)\n\ndef parallel_resistance(*resistors):\n    return 1 / sum(1/r for r in resistors)\n\ndef analyze_circuit(voltage, resistance):\n    current = voltage / resistance\n    power = voltage * current\n    return {'voltage': voltage, 'resistance': resistance,\n            'current': round(current, 4), 'power': round(power, 4)}\n\n# Example: 3 resistors in parallel, then in series with one more\nr_parallel = parallel_resistance(100, 200, 300)\nr_total = series_resistance(r_parallel, 50)\ncircuit = analyze_circuit(12, r_total)\nprint(circuit)",
+            "solution": "The circuit has parallel resistors giving ~54.5 ohms, plus 50 ohm series resistor = 104.5 ohms total. At 12V: I = 0.115A, P = 1.38W."
+          },
+          "quiz": [
+            {
+              "question": "What is Ohm's Law?",
+              "options": ["P = IV", "V = IR", "F = ma", "E = mc²"],
+              "answer": 1,
+              "explanation": "Ohm's Law states V = IR, where V is voltage, I is current, and R is resistance."
+            },
+            {
+              "question": "In a parallel circuit, voltage across each branch is:",
+              "options": ["Different", "The same", "Zero", "Added together"],
+              "answer": 1,
+              "explanation": "In a parallel circuit, all branches share the same voltage across them."
+            },
+            {
+              "question": "What is the power formula using current and resistance?",
+              "options": ["P = V/I", "P = I²R", "P = V²I", "P = R/I"],
+              "answer": 1,
+              "explanation": "Power P = I²R, derived from P = VI and V = IR, so P = I × IR = I²R."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "physics",
+      "title": "Physics",
+      "category": "Science",
+      "icon": "🔭",
+      "color": "#4ECDC4",
+      "description": "Mechanics, waves, thermodynamics, and modern physics.",
+      "lessons": [
+        {
+          "id": "physics-1",
+          "title": "Newton's Laws of Motion",
+          "content": "Newton's Three Laws of Motion form the foundation of classical mechanics and describe the relationship between forces and motion.\n\n1st Law (Inertia): An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an unbalanced force.\n\n2nd Law: F = ma — Force equals mass times acceleration. This explains how the velocity of an object changes when it is subjected to an external force.\n\n3rd Law: For every action, there is an equal and opposite reaction.\n\nKey quantities:\n• Velocity: Speed with direction (m/s)\n• Acceleration: Rate of change of velocity (m/s²)\n• Force: Push or pull on an object (Newtons)\n• Momentum: p = mv\n• Work: W = F × d × cos(θ)\n• Kinetic Energy: KE = ½mv²\n• Potential Energy: PE = mgh",
+          "activity": {
+            "type": "code",
+            "title": "Projectile Motion Simulator",
+            "description": "Simulate projectile motion and find the range and max height.",
+            "starter": "import math\n\ndef projectile(v0, angle_deg, g=9.81):\n    angle = math.radians(angle_deg)\n    vx = v0 * math.cos(angle)\n    vy = v0 * math.sin(angle)\n    \n    t_max = vy / g\n    t_total = 2 * t_max\n    max_height = (vy**2) / (2*g)\n    range_ = vx * t_total\n    \n    return {\n        'max_height': round(max_height, 2),\n        'range': round(range_, 2),\n        'time_of_flight': round(t_total, 2)\n    }\n\nfor angle in [30, 45, 60, 75]:\n    result = projectile(50, angle)\n    print(f'Angle {angle}°: {result}')",
+            "solution": "At 45° the range is maximized. Max height increases with angle up to 90°. Range = v²sin(2θ)/g."
+          },
+          "quiz": [
+            {
+              "question": "What does Newton's Second Law state?",
+              "options": ["Every action has an equal reaction", "F = ma", "Objects in motion stay in motion", "Energy is conserved"],
+              "answer": 1,
+              "explanation": "Newton's 2nd Law: F = ma — Force equals mass multiplied by acceleration."
+            },
+            {
+              "question": "At what angle is projectile range maximized (no air resistance)?",
+              "options": ["30°", "60°", "45°", "90°"],
+              "answer": 2,
+              "explanation": "Range R = v²sin(2θ)/g is maximized when sin(2θ) = 1, so 2θ = 90°, meaning θ = 45°."
+            },
+            {
+              "question": "What is the formula for kinetic energy?",
+              "options": ["KE = mgh", "KE = Fd", "KE = ½mv²", "KE = mv"],
+              "answer": 2,
+              "explanation": "Kinetic Energy KE = ½mv², where m is mass and v is velocity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chemistry",
+      "title": "Chemistry",
+      "category": "Science",
+      "icon": "🧪",
+      "color": "#A8FF78",
+      "description": "Atomic structure, bonding, reactions, and organic chemistry.",
+      "lessons": [
+        {
+          "id": "chem-1",
+          "title": "Atomic Structure & Periodic Table",
+          "content": "The atom is the basic unit of matter. Understanding atomic structure is the foundation of chemistry.\n\nAtomic structure:\n• Protons: Positive charge, in nucleus, define the element\n• Neutrons: No charge, in nucleus, define isotopes\n• Electrons: Negative charge, in shells/orbitals around nucleus\n\nAtomic number: Number of protons\nMass number: Protons + Neutrons\nIsotopes: Same element, different neutron count\n\nPeriodic Table organization:\n• Periods (rows): Elements in same period have same electron shells\n• Groups (columns): Elements in same group have similar properties\n• Metals, nonmetals, and metalloids\n• Group 1 (Alkali metals): Highly reactive\n• Group 17 (Halogens): Very reactive nonmetals\n• Group 18 (Noble gases): Inert/unreactive\n\nElectron configuration follows the Aufbau principle: fill lowest energy orbitals first.",
+          "activity": {
+            "type": "code",
+            "title": "Electron Configuration",
+            "description": "Write a function to determine electron configuration of any element.",
+            "starter": "def electron_config(atomic_number):\n    orbitals = [\n        ('1s', 2), ('2s', 2), ('2p', 6), ('3s', 2), ('3p', 6),\n        ('4s', 2), ('3d', 10), ('4p', 6), ('5s', 2), ('4d', 10),\n        ('5p', 6), ('6s', 2)\n    ]\n    config = []\n    remaining = atomic_number\n    for orbital, max_e in orbitals:\n        if remaining <= 0:\n            break\n        electrons = min(remaining, max_e)\n        config.append(f'{orbital}^{electrons}')\n        remaining -= electrons\n    return ' '.join(config)\n\nfor name, z in [('H', 1), ('C', 6), ('Na', 11), ('Fe', 26)]:\n    print(f'{name}: {electron_config(z)}')",
+            "solution": "The function fills orbitals in energy order: 1s, 2s, 2p, 3s, 3p, 4s, 3d, etc. Carbon: 1s² 2s² 2p²"
+          },
+          "quiz": [
+            {
+              "question": "What determines the identity of an element?",
+              "options": ["Number of neutrons", "Number of protons", "Number of electrons", "Mass number"],
+              "answer": 1,
+              "explanation": "The number of protons (atomic number) uniquely identifies each element."
+            },
+            {
+              "question": "What are isotopes?",
+              "options": ["Atoms of different elements", "Atoms with the same proton count but different neutron count", "Charged atoms", "Atoms that bond together"],
+              "answer": 1,
+              "explanation": "Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons."
+            },
+            {
+              "question": "Noble gases are found in which group?",
+              "options": ["Group 1", "Group 7", "Group 17", "Group 18"],
+              "answer": 3,
+              "explanation": "Noble gases (He, Ne, Ar, Kr, Xe, Rn) are in Group 18 — they have full outer electron shells making them inert."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "science",
+      "title": "General Science",
+      "category": "Science",
+      "icon": "🔬",
+      "color": "#56CCF2",
+      "description": "Biology, earth science, astronomy, and scientific method.",
+      "lessons": [
+        {
+          "id": "sci-1",
+          "title": "The Scientific Method",
+          "content": "The scientific method is a systematic process for investigating phenomena, acquiring new knowledge, and correcting prior knowledge.\n\nSteps of the scientific method:\n1. Observation: Notice something interesting\n2. Question: Ask why/how it happens\n3. Hypothesis: Propose a testable explanation\n4. Experiment: Design and conduct tests\n5. Data Collection: Gather measurements\n6. Analysis: Interpret the data\n7. Conclusion: Does data support hypothesis?\n8. Communication: Share results for peer review\n\nKey concepts:\n• Control group: Unchanged condition for comparison\n• Experimental group: Receives the variable being tested\n• Variables: Independent (cause), Dependent (effect)\n• Peer review: Other scientists evaluate the work\n• Reproducibility: Experiments must be repeatable\n\nScience builds on previous discoveries and self-corrects through evidence.",
+          "activity": {
+            "type": "code",
+            "title": "Statistical Analysis of Experiment Data",
+            "description": "Analyze experimental results using basic statistics.",
+            "starter": "data = {\n    'control': [23, 25, 24, 26, 22, 25, 23, 24],\n    'experimental': [35, 38, 33, 40, 36, 37, 34, 39]\n}\n\ndef statistics(values):\n    n = len(values)\n    mean = sum(values) / n\n    variance = sum((x - mean)**2 for x in values) / (n-1)\n    std_dev = variance**0.5\n    sorted_v = sorted(values)\n    median = (sorted_v[n//2-1] + sorted_v[n//2]) / 2 if n%2 == 0 else sorted_v[n//2]\n    return {'mean': round(mean,2), 'std_dev': round(std_dev,2), 'median': round(median,2)}\n\nfor group, values in data.items():\n    print(f'{group}: {statistics(values)}')",
+            "solution": "The experimental group has a significantly higher mean (~36.5) vs control (~24.0), suggesting the intervention had an effect."
+          },
+          "quiz": [
+            {
+              "question": "What is a hypothesis?",
+              "options": ["A proven fact", "A random guess", "A testable prediction or explanation", "The result of an experiment"],
+              "answer": 2,
+              "explanation": "A hypothesis is a testable, falsifiable explanation or prediction based on prior knowledge and observations."
+            },
+            {
+              "question": "What is the purpose of a control group?",
+              "options": ["To receive the treatment", "To provide a baseline comparison", "To confuse results", "To speed up experiments"],
+              "answer": 1,
+              "explanation": "A control group receives no treatment, providing a baseline to compare against the experimental group."
+            },
+            {
+              "question": "What is peer review?",
+              "options": ["Students grading each other", "Scientists evaluating other scientists' work", "A government review process", "Patent review"],
+              "answer": 1,
+              "explanation": "Peer review is evaluation of scientific work by other experts in the same field to ensure quality and validity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "art",
+      "title": "Art & Design",
+      "category": "Creative",
+      "icon": "🎨",
+      "color": "#FF9FF3",
+      "description": "Visual arts, design principles, color theory, and art history.",
+      "lessons": [
+        {
+          "id": "art-1",
+          "title": "Design Principles",
+          "content": "Design principles are the fundamental guidelines that govern how visual elements are arranged and interact with each other.\n\nCore design principles:\n• Balance: Distributing visual weight (symmetrical or asymmetrical)\n• Contrast: Using difference to create visual interest\n• Alignment: Creating order and organization\n• Repetition: Creating consistency and rhythm\n• Proximity: Grouping related elements\n• White space (Negative space): Empty areas that give breathing room\n\nColor theory:\n• Primary colors: Red, Yellow, Blue (traditional)\n• Secondary colors: Mixed from two primaries\n• Complementary colors: Opposite on color wheel — high contrast\n• Analogous colors: Adjacent on wheel — harmonious\n• Color psychology: Blue (calm), Red (energy), Green (nature)\n\nTypography:\n• Serif vs Sans-serif fonts\n• Hierarchy through size and weight\n• Readability and legibility\n\nThe Golden Ratio (1.618) appears throughout art and nature, creating naturally pleasing proportions.",
+          "activity": {
+            "type": "code",
+            "title": "Color Palette Generator",
+            "description": "Generate complementary and analogous color palettes from a base hue.",
+            "starter": "def hsl_to_hex(h, s, l):\n    h = h % 360\n    s /= 100; l /= 100\n    c = (1 - abs(2*l - 1)) * s\n    x = c * (1 - abs((h/60) % 2 - 1))\n    m = l - c/2\n    if h < 60: r,g,b = c,x,0\n    elif h < 120: r,g,b = x,c,0\n    elif h < 180: r,g,b = 0,c,x\n    elif h < 240: r,g,b = 0,x,c\n    elif h < 300: r,g,b = x,0,c\n    else: r,g,b = c,0,x\n    return '#{:02x}{:02x}{:02x}'.format(int((r+m)*255), int((g+m)*255), int((b+m)*255))\n\nbase_hue = 220  # Blue\nprint('Base color:', hsl_to_hex(base_hue, 70, 50))\nprint('Complementary:', hsl_to_hex(base_hue + 180, 70, 50))\nprint('Analogous:', [hsl_to_hex(base_hue + offset, 70, 50) for offset in [-30, 0, 30]])\nprint('Triadic:', [hsl_to_hex(base_hue + offset, 70, 50) for offset in [0, 120, 240]])",
+            "solution": "Color harmony relationships are based on positions on the HSL color wheel. Complementary colors are 180° apart."
+          },
+          "quiz": [
+            {
+              "question": "What are complementary colors?",
+              "options": ["Colors that are similar", "Colors opposite on the color wheel", "Colors that match", "Warm colors only"],
+              "answer": 1,
+              "explanation": "Complementary colors are opposite each other on the color wheel, creating high contrast when paired."
+            },
+            {
+              "question": "What design principle involves distributing visual weight?",
+              "options": ["Contrast", "Balance", "Repetition", "Proximity"],
+              "answer": 1,
+              "explanation": "Balance involves distributing visual weight (symmetrically or asymmetrically) to create a stable, pleasing composition."
+            },
+            {
+              "question": "What is the Golden Ratio approximately equal to?",
+              "options": ["1.0", "1.414", "1.618", "2.0"],
+              "answer": 2,
+              "explanation": "The Golden Ratio ≈ 1.618, found throughout nature and art, creates aesthetically pleasing proportions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "government",
+      "title": "Government & Civics",
+      "category": "Social Studies",
+      "icon": "🏛️",
+      "color": "#C0C0C0",
+      "description": "Political systems, democracy, governance, and civil rights.",
+      "lessons": [
+        {
+          "id": "gov-1",
+          "title": "Types of Government",
+          "content": "Government is the system by which a state or community is controlled and regulated. Different types of government determine how power is distributed and exercised.\n\nMajor forms of government:\n• Democracy: Citizens elect representatives; power from the people\n  - Direct democracy: Citizens vote on all decisions\n  - Representative democracy: Elected officials make decisions\n• Monarchy: Rule by a king or queen\n  - Absolute monarchy: Monarch has unlimited power\n  - Constitutional monarchy: Monarch limited by constitution\n• Dictatorship/Autocracy: Single ruler with total control\n• Oligarchy: Rule by a small group\n• Theocracy: Rule by religious leaders/law\n• Republic: State where power rests with citizens and elected representatives\n\nKey democratic concepts:\n• Separation of powers: Legislative, Executive, Judicial\n• Checks and balances: Each branch limits others\n• Rule of law: Everyone is subject to law equally\n• Civil liberties: Individual rights protected from government",
+          "activity": {
+            "type": "code",
+            "title": "Voting System Simulator",
+            "description": "Simulate different voting systems and compare their outcomes.",
+            "starter": "candidates = ['Alice', 'Bob', 'Carol']\nvotes = ['Alice']*45 + ['Bob']*35 + ['Carol']*20\n\ndef plurality(votes):\n    from collections import Counter\n    count = Counter(votes)\n    return max(count, key=count.get), count\n\ndef majority_runoff(votes):\n    from collections import Counter\n    count = Counter(votes)\n    total = len(votes)\n    for c, v in count.items():\n        if v / total > 0.5:\n            return c, 'First round majority'\n    top2 = sorted(count, key=count.get, reverse=True)[:2]\n    runoff = [v for v in votes if v in top2]\n    return plurality(runoff)[0], 'Runoff required'\n\nwinner, counts = plurality(votes)\nprint(f'Plurality winner: {winner}, Counts: {counts}')\nwinner2, msg = majority_runoff(votes)\nprint(f'Majority runoff: {winner2} ({msg})')",
+            "solution": "In plurality, Alice wins with 45%. In majority runoff, since no one has >50%, Alice and Bob proceed to runoff where Alice wins again."
+          },
+          "quiz": [
+            {
+              "question": "What does separation of powers mean?",
+              "options": ["Dividing a country geographically", "Splitting government into legislative, executive, and judicial branches", "Separating rich from poor", "Dividing political parties"],
+              "answer": 1,
+              "explanation": "Separation of powers divides government authority into legislative (makes laws), executive (enforces laws), and judicial (interprets laws) branches."
+            },
+            {
+              "question": "In a direct democracy, who makes decisions?",
+              "options": ["Elected representatives", "A king", "Citizens themselves", "Judges"],
+              "answer": 2,
+              "explanation": "In direct democracy, citizens vote directly on all laws and decisions, rather than through elected representatives."
+            },
+            {
+              "question": "What is the rule of law?",
+              "options": ["Laws only apply to criminals", "The ruler is above the law", "Everyone is equally subject to the law", "Military controls the law"],
+              "answer": 2,
+              "explanation": "Rule of law means all individuals and institutions, including the government, are accountable to laws applied fairly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home_economics",
+      "title": "Home Economics",
+      "category": "Life Skills",
+      "icon": "🏠",
+      "color": "#FFEAA7",
+      "description": "Nutrition, budgeting, cooking, household management, and life skills.",
+      "lessons": [
+        {
+          "id": "he-1",
+          "title": "Personal Finance & Budgeting",
+          "content": "Personal finance is the management of your money, including budgeting, saving, investing, and planning for the future.\n\nThe 50/30/20 Rule:\n• 50% — Needs (rent, food, utilities, transportation)\n• 30% — Wants (entertainment, dining out, hobbies)\n• 20% — Savings & debt repayment\n\nKey financial concepts:\n• Budget: Plan for how to spend money\n• Emergency fund: 3-6 months of expenses saved\n• Compound interest: Interest earned on interest (powerful for saving)\n• Debt: Money owed — minimize high-interest debt\n• Investment: Using money to make more money\n• Net worth: Assets minus liabilities\n\nSaving strategies:\n• Pay yourself first — save before spending\n• Automate savings\n• Track every expense\n• Compare prices before buying\n\nFormula: Future Value = P(1 + r)^n where P=principal, r=rate, n=years",
+          "activity": {
+            "type": "code",
+            "title": "Budget Calculator",
+            "description": "Build a personal budget analyzer with savings projections.",
+            "starter": "def budget_analysis(income, expenses):\n    total_expenses = sum(expenses.values())\n    savings = income - total_expenses\n    savings_rate = (savings / income) * 100\n    \n    needs = expenses.get('rent', 0) + expenses.get('food', 0) + expenses.get('utilities', 0)\n    wants = expenses.get('entertainment', 0) + expenses.get('dining', 0)\n    \n    return {\n        'income': income,\n        'total_expenses': total_expenses,\n        'savings': savings,\n        'savings_rate': round(savings_rate, 1),\n        'needs_pct': round(needs/income*100, 1),\n        'wants_pct': round(wants/income*100, 1)\n    }\n\ndef compound_growth(principal, rate, years):\n    return round(principal * (1 + rate)**years, 2)\n\nmy_budget = budget_analysis(3000, {'rent': 900, 'food': 400, 'utilities': 150, 'entertainment': 200, 'dining': 150})\nprint(my_budget)\nprint('5-year savings at 5%:', compound_growth(my_budget['savings']*12, 0.05, 5))",
+            "solution": "Savings = $1200/mo, savings rate = 40% (excellent!). 5-year compound growth of annual savings at 5% = significant wealth building."
+          },
+          "quiz": [
+            {
+              "question": "In the 50/30/20 rule, what percentage goes to needs?",
+              "options": ["20%", "30%", "50%", "40%"],
+              "answer": 2,
+              "explanation": "The 50/30/20 rule allocates 50% to needs, 30% to wants, and 20% to savings and debt repayment."
+            },
+            {
+              "question": "What is compound interest?",
+              "options": ["Interest on the principal only", "A government tax", "Interest earned on both principal and previously earned interest", "A type of bank fee"],
+              "answer": 2,
+              "explanation": "Compound interest is interest calculated on the initial principal AND accumulated interest, causing exponential growth."
+            },
+            {
+              "question": "How many months of expenses should an emergency fund cover?",
+              "options": ["1 month", "3-6 months", "10 months", "2 years"],
+              "answer": 1,
+              "explanation": "Financial experts recommend an emergency fund covering 3-6 months of living expenses to handle unexpected events."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "recommendations": {
+    "ai": ["cs", "tech", "physics"],
+    "cs": ["ai", "tech", "ce"],
+    "tech": ["cs", "ai", "ce"],
+    "ce": ["eee", "cs", "physics"],
+    "eee": ["ce", "physics", "cs"],
+    "physics": ["chemistry", "eee", "science"],
+    "chemistry": ["physics", "science", "biology"],
+    "science": ["physics", "chemistry", "art"],
+    "art": ["home_economics", "government", "science"],
+    "government": ["home_economics", "science", "art"],
+    "home_economics": ["government", "art", "science"]
+  }
+}
